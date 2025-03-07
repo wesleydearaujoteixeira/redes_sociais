@@ -1,7 +1,7 @@
 package com.example.redes_sociais.model_comentario;
 
 import com.example.redes_sociais.resposta.Resposta;
-import com.example.redes_sociais.likes_comentario.LikeComentario;
+import com.example.redes_sociais.likes_comentario.LikesComentario;
 import com.example.redes_sociais.models.user_model.Usuario;
 import com.example.redes_sociais.post_model.Postagem;
 import jakarta.persistence.*;
@@ -26,7 +26,7 @@ public class Comentario {
     private String conteudo;
 
     @OneToMany(mappedBy = "comentario")
-    private List<LikeComentario> likes;
+    private List<LikesComentario> likes;
 
     @OneToMany(mappedBy = "comentario")
     private List<Resposta> respostas;

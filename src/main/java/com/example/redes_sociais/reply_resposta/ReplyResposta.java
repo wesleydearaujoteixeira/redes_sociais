@@ -4,6 +4,7 @@ import com.example.redes_sociais.models.user_model.Usuario;
 import com.example.redes_sociais.resposta.Resposta;
 import jakarta.persistence.*;
 
+@Entity
 public class ReplyResposta {
 
     @Id

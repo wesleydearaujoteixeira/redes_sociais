@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-public class LikeComentario {
+public class LikesComentario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
