@@ -13,11 +13,19 @@ public class Comentario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long comentId;
+    private Integer coment_id;
 
     @ManyToOne
     @JoinColumn(name = "postagem_comment_id", nullable = false)
     private Postagem postagem;
+
+    public Integer getComentId() {
+        return coment_id;
+    }
+
+    public void setComentId(Integer comentId) {
+        this.coment_id = comentId;
+    }
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

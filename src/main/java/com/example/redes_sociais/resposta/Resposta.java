@@ -17,6 +17,14 @@ public class Resposta {
     @JoinColumn(name = "postagem_id", nullable = false)
     private Postagem postagem;
 
+    public Long getRespostaId() {
+        return respostaId;
+    }
+
+    public void setRespostaId(Long respostaId) {
+        this.respostaId = respostaId;
+    }
+
     @ManyToOne
     @JoinColumn(name = "comment_id", nullable = false)
     private Comentario comentario;
