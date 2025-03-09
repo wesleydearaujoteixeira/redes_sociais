@@ -19,6 +19,18 @@ public class Postagem {
     @JoinColumn(name = "user_id", nullable = false)
     private Usuario usuario;
 
+
+    public Long getPostagem_id(){
+        return postagem_id;
+    }
+    public Long getUsuarioId(){
+        return this.usuario.getId();
+    }
+
+    public Usuario setUsuario(Usuario usuario){
+        return this.usuario = usuario;
+    }
+
     private String conteudo;
 
     @OneToMany(mappedBy = "postagem")

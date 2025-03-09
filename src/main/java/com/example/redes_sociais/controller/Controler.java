@@ -4,6 +4,7 @@ package com.example.redes_sociais.controller;
 import com.example.redes_sociais.models.user_model.UserRepository;
 import com.example.redes_sociais.models.user_model.UserServices;
 import com.example.redes_sociais.models.user_model.Usuario;
+import com.example.redes_sociais.post_model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,12 @@ public class Controler {
     @Autowired
     private PasswordEncoder encoder;
 
+    @Autowired
+    PostagemService postagemService;
+
+    @Autowired
+    PostRepository postRepo;
+
     @PostMapping("/cadastrar")
 
     public ResponseEntity<?> CadastrarNoSistema(@RequestBody Usuario user) {
@@ -32,7 +39,9 @@ public class Controler {
 
         if(!userExist){
             Usuario usuario = userRepo.CadastrarUser(user);
-            return ResponseEntity.status(HttpStatus.OK).body("Usuário Criado com sucesso");
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .header("user-id", usuario.getId().toString())
+                    .body("Usuário Criado com sucesso");
         }
 
         return ResponseEntity.badRequest().build();
@@ -62,6 +71,33 @@ public class Controler {
 
     }
 
+    @PostMapping("/post")
+    public ResponseEntity<?>  Post(@RequestBody PostagemDTO postagemDTO) {
+
+        System.out.println("Usuário ID: " + postagemDTO.getUserId());
+        System.out.println("Conteúdo: " + postagemDTO.getConteudo());
+        try {
+            // Chama o serviço para criar a postagem
+            Postagem novaPostagem = postagemService.criarPostagem(postagemDTO.getUserId(), postagemDTO.getConteudo());
+            // Retorna a postagem criada com o status CREATED (201)
+            return ResponseEntity.status(HttpStatus.CREATED).body(novaPostagem);
+        } catch (RuntimeException e) {
+            // Se o usuário não for encontrado, retorna BAD REQUEST
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(" ssdsdls ");
+        }
+    }
+
+    @GetMapping("/post/list")
+
+    public ResponseEntity<?> list(Postagem postes) {
+        List<Postagem> posts = postagemService.listPosts(postes);
+
+        if(!posts.isEmpty()){
+            return ResponseEntity.ok(posts);
+        }
+
+        return ResponseEntity.badRequest().build();
+    }
 
 
 
@@ -69,3 +105,11 @@ public class Controler {
 
 
 }
+
+
+
+
+
+
+
+
